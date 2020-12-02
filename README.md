@@ -28,7 +28,7 @@ This project will make three containers on your Docker host:
 
      C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
 
-As first step, you need to clone Laravel project form GitHub (git clone https://github.com/laravel/laravel.git). I used the version 6.X for this setup. Then go to the cloned folder. Now we use composer tools to install required tools using its container image (sudo docker run --rm -v $(pwd):/app composer install). Now you just need to install docker-compose and run docker-compose.yml file to start running your webserver (sudo docker-compose up -d).
+As first step, all you need to do is run the run.sh script to setup files and containers. This script will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor host and after that it will start configuring and running containers on your host.
 
 After sucssesful running of all containers, you need to run some command to finalize your setup. First of all, you need to configure your App container with these commands:
 
@@ -47,11 +47,7 @@ Commans in a nutshell:
 
 #Main setup
 
-git clone https://github.com/laravel/laravel.git --branch=6.X
-
-sudo docker run --rm -v $(pwd):/app composer install
-
-sudo docker-compose up -d
+./run.sh
 
 #Configuring containers
 

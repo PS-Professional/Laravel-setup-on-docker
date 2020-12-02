@@ -21,11 +21,14 @@ What will this project do?
 
 
 This project will make three containers on your Docker host:
+
      A) A webserver using Nginx image (Nginx:alpine)
+
      B) A databse using MySQL (mysql:5.7.22)
+
      C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
 
-as first step, you need to clone Laravel project form GitHub (git clone https://github.com/laravel/laravel.git). I used the version 6.X for this setup. Then go to the cloned folder. Now we use composer tools to install required tools using its container image (sudo docker run --rm -v $(pwd):/app composer install). Now you just need to install docker-compose and run docker-compose.yml file to start running your webserver (sudo docker-compose up -d).
+As first step, you need to clone Laravel project form GitHub (git clone https://github.com/laravel/laravel.git). I used the version 6.X for this setup. Then go to the cloned folder. Now we use composer tools to install required tools using its container image (sudo docker run --rm -v $(pwd):/app composer install). Now you just need to install docker-compose and run docker-compose.yml file to start running your webserver (sudo docker-compose up -d).
 
 After sucssesful running of all containers, you need to run some command to finalize your setup. First of all, you need to configure your App container with these commands:
 

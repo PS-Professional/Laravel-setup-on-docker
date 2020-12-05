@@ -32,5 +32,5 @@ sleep 1
 #config files
 echo Gitting files from GitHub and running configurations\.\.\.
 sleep 1
-git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
+#git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
 sudo docker-compose up -d

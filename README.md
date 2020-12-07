@@ -45,43 +45,43 @@ When you done this configurations, you can simply open your web browser and and 
 Commans in a nutshell:
 
 
-#Main setup
+      #Main setup
 
-./run.sh
+      ./run.sh
 
-#Configuring containers
+      #Configuring containers
 
-sudo docker-compose exec App php artisan key:generate
+      sudo docker-compose exec App php artisan key:generate
 
-sudo docker-compose exec App php artisan config:cache
+      sudo docker-compose exec App php artisan config:cache
 
-sudo docker-compose exec DB bash 
+      sudo docker-compose exec DB bash 
 
-#next commands are in DB prompt
+      #next commands are in DB prompt
 
-mysql -u root -p (the password is: admin123)
+      mysql -u root -p (the password is: admin123)
 
-show databases;
+      show databases;
 
-grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123';
+      grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123';
 
-flush privileges;
+      flush privileges;
 
-exit;
+      exit;
 
-exit
+      exit
 
-#now you are in your prompt
+      #now you are in your prompt
 
-sudo docker-compose exec App php artisan migrate
+      sudo docker-compose exec App php artisan migrate
 
-#optional for testing the database connetion
+      #optional for testing the database connetion
 
-docker-compose exec App php artisan tinker
+      docker-compose exec App php artisan tinker
 
-\DB::table('migrations')->get();
+      \DB::table('migrations')->get();
 
-exit()
+      exit()
 
 
 My experience on setup:
@@ -92,3 +92,5 @@ As first try, I cloned the last version of Laravel and after running all contain
 After that i tried to use PHP version 7.3 version but on setting up the image, I got errors about ziplib distribution.
 
 At last, I tried Laravel version 6.X and PHP version 7.2 and it finally worked
+
+Now I'm trying to use the latest version of PHP and Laravel

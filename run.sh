@@ -35,6 +35,5 @@ sleep 1
 #git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
 sudo docker pull composer
 sudo docker run --rm -v $(pwd):/app composer install
-sudo docker build -t ps/php php
-sudo docker build -t ps/nginx nginx
+sudo docker build -t ps/php .
 sudo docker-compose up -d

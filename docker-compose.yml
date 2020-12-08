@@ -15,21 +15,21 @@ services:
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
-      #- ./laravel:/var/www
+      - Laravel:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
 
   #Nginx Service
   Webserver:
-    image: ps/nginx
+          image: nginx:alpine
     container_name: Webserver
     restart: unless-stopped
     tty: true
     ports:
       - "8000:80"
     volumes:
-      #- ./laravel:/var/www
+      - Laravel:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
@@ -59,4 +59,5 @@ networks:
 volumes:
   DBdata:
     driver: local
-
+  Laravel:
+    driver: local

@@ -77,7 +77,7 @@ Commans in a nutshell:
 
       #optional for testing the database connetion
 
-      docker-compose exec App php artisan tinker
+      sudo docker-compose exec App php artisan tinker
 
       \DB::table('migrations')->get();
 
@@ -91,6 +91,6 @@ As first try, I cloned the last version of Laravel and after running all contain
 
 After that i tried to use PHP version 7.3 version but on setting up the image, I got errors about ziplib distribution.
 
-At last, I tried Laravel version 6.X and PHP version 7.2 and it finally worked
+After that, I tried Laravel version 6.X and PHP version 7.2 and it finally worked
 
-Now I'm trying to use the latest version of PHP and Laravel
+At last, tried to use the latest version of PHP and Laravel. What I did for it is cloned Lravel files into php image and after that share that files with Nginx using Volumes

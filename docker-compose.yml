@@ -3,9 +3,6 @@ services:
 
   #PHP Service
   App:
-    #build:
-    #  context: ./laravel
-    #  dockerfile: Dockerfile
     image: ps/php
     container_name: App
     restart: unless-stopped
@@ -22,7 +19,7 @@ services:
 
   #Nginx Service
   Webserver:
-          image: nginx:alpine
+    image: nginx:alpine
     container_name: Webserver
     restart: unless-stopped
     tty: true

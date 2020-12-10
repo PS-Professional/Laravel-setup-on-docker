@@ -34,5 +34,5 @@ echo Gitting files from GitHub and running configurations\.\.\.
 sleep 1
 #git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
 sudo docker pull composer
-sudo docker build -t ps/php .
+sudo docker build -t ps/php:1.0 -t ps/php:latest .
 sudo docker-compose up -d

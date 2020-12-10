@@ -11,29 +11,31 @@ Developed by PS-Professional
 ===================================================================================================
 
 
-What is this project?
-
+##What is this project?
 
 This project inclode configurations to setup and run webserver which running Laravel framework. Laravel is a PHP Framework designed for web development. It also uses database applications such as MySQL for better performance.
 
-
-What will this project do?
+##What will this project do?
 
 
 This project will make three containers on your Docker host:
 
-     A) A webserver using Nginx image (Nginx:alpine)
+~~~
+- A) A webserver using Nginx image (Nginx:alpine)
 
-     B) A databse using MySQL (mysql:5.7.22)
+- B) A databse using MySQL (mysql:5.7.22)
 
-     C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
+- C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
+~~~
 
 As first step, all you need to do is run the run.sh script to setup files and containers. This script will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor host and after that it will start configuring and running containers on your host.
 
 After sucssesful running of all containers, you need to run some command to finalize your setup. First of all, you need to configure your App container with these commands:
 
+~~~
 sudo docker-compose exec App php artisan key:generate
 sudo docker-compose exec App php artisan config:cache
+~~~
 
 First command will generate a key and copy it to your .env file, ensuring that your user sessions and encrypted data remain secure and the second command will cache required environment settings ionto a file for more load speed.
 
@@ -42,47 +44,47 @@ After this step, you need to create a DB user for laravel to perform a better se
 When you done this configurations, you can simply open your web browser and and enter http://your_server_ip:8000 address to see your final result.
 
 
-Commans in a nutshell:
+#Commans in a nutshell:
 
+~~~
+#Main setup
 
-      #Main setup
+./run.sh
 
-      ./run.sh
+#Configuring containers
 
-      #Configuring containers
+sudo docker-compose exec App php artisan key:generate
 
-      sudo docker-compose exec App php artisan key:generate
+sudo docker-compose exec App php artisan config:cache
 
-      sudo docker-compose exec App php artisan config:cache
+sudo docker-compose exec DB bash 
 
-      sudo docker-compose exec DB bash 
+#next commands are in DB prompt
 
-      #next commands are in DB prompt
+mysql -u root -p (the password is: admin123)
 
-      mysql -u root -p (the password is: admin123)
+show databases;
 
-      show databases;
+grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123';
 
-      grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123';
+flush privileges;
 
-      flush privileges;
+exit;
 
-      exit;
+exit
 
-      exit
+#now you are in your prompt
 
-      #now you are in your prompt
+sudo docker-compose exec App php artisan migrate
 
-      sudo docker-compose exec App php artisan migrate
+#optional for testing the database connetion
 
-      #optional for testing the database connetion
+sudo docker-compose exec App php artisan tinker
 
-      sudo docker-compose exec App php artisan tinker
+\DB::table('migrations')->get();
 
-      \DB::table('migrations')->get();
-
-      exit()
-
+exit()
+~~~
 
 My experience on setup:
 

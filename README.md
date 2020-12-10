@@ -11,21 +11,21 @@ Developed by PS-Professional
 ===================================================================================================
 
 
-##What is this project?
+## What is this project?
 
 This project inclode configurations to setup and run webserver which running Laravel framework. Laravel is a PHP Framework designed for web development. It also uses database applications such as MySQL for better performance.
 
-##What will this project do?
+## What will this project do?
 
 
 This project will make three containers on your Docker host:
 
 ~~~
-- A) A webserver using Nginx image (Nginx:alpine)
+A) A webserver using Nginx image (Nginx:alpine)
 
-- B) A databse using MySQL (mysql:5.7.22)
+B) A databse using MySQL (mysql:5.7.22)
 
-- C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
+C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
 ~~~
 
 As first step, all you need to do is run the run.sh script to setup files and containers. This script will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor host and after that it will start configuring and running containers on your host.
@@ -44,7 +44,7 @@ After this step, you need to create a DB user for laravel to perform a better se
 When you done this configurations, you can simply open your web browser and and enter http://your_server_ip:8000 address to see your final result.
 
 
-#Commans in a nutshell:
+## Commans in a nutshell:
 
 ~~~
 #Main setup
@@ -86,7 +86,7 @@ sudo docker-compose exec App php artisan tinker
 exit()
 ~~~
 
-My experience on setup:
+## My experience on setup:
 
 
 As first try, I cloned the last version of Laravel and after running all container, I tried to run commands on App container but I got out-of-date error on PHP version which needed to be >= 7.3. 

@@ -20,15 +20,23 @@ This project inclode configurations to setup and run webserver which running Lar
 
 This project will make three containers on your Docker host:
 
-~~~
-A) A webserver using Nginx image (Nginx:alpine)
 
-B) A databse using MySQL (mysql:5.7.22)
+* A webserver using Nginx image (Nginx:alpine)
 
-C) A container serving PHP tools for serving Laravel (using php:7.2-fpm)
-~~~
+* A databse using MySQL (mysql:5.7.22)
 
-As first step, all you need to do is run the run.sh script to setup files and containers. This script will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor host and after that it will start configuring and running containers on your host.
+* A container serving PHP tools for serving Laravel (using php:7.2-fpm)
+
+
+As first step, all you need to do is run the run.sh script to setup files and containers. This script has three functions:
+* init 
+
+* start
+
+* stop
+init function will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor Laravel image and configure settings.
+start function will start running containers on your host.
+stop function will stop contianers created by start function.
 
 After sucssesful running of all containers, you need to run some command to finalize your setup. First of all, you need to configure your App container with these commands:
 
@@ -49,7 +57,9 @@ When you done this configurations, you can simply open your web browser and and 
 ~~~
 #Main setup
 
-./run.sh
+./run.sh init
+
+./run.sh start
 
 #Configuring containers
 

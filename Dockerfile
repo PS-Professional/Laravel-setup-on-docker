@@ -8,7 +8,7 @@ FROM php:7.4-fpm
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -39,16 +39,14 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Clone Laravel application directory contents
-RUN git clone https://github.com/laravel/laravel.git --branch=6.X /Tmp
-RUN cp -r /Tmp/* /var/www/
-RUN rm -rf /Tmp
-COPY .env /var/www
-RUN cd /var/www
+RUN git clone https://github.com/laravel/laravel.git --branch=6.x /var/www/html
+COPY .env /var/www/html
+RUN cd /var/www/html
 RUN composer install
 RUN composer update
 
 # Copy existing application directory permissions
-RUN chown -R www:www /var/www
+RUN chown -R www:www /var/www/html
 
 # Change current user to www
 USER www

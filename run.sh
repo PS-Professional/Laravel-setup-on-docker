@@ -12,27 +12,36 @@
 #===================================================================================================
 
 #Install Docker
-echo installing Docker\.\.\.
-sleep 1
-sudo apt update
-sudo apt install -y\
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
-echo Installing done\!
-sleep 1
-#config files
-echo Gitting files from GitHub and running configurations\.\.\.
-sleep 1
-#git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
-sudo docker pull composer
-sudo docker build -t ps/php:1.0 -t ps/php:latest .
-sudo docker-compose up -d
+echo Hello\!
+echo -e 'What you want me to do?\n1)Setup containers (init)\n2)Start containers (start)\n3)Stop containers (stop)'
+read -p '-> ' func
+case func in
+	init )
+		echo installing Docker\.\.\.
+		sleep 1
+		sudo apt update
+		sudo apt install -y\
+    			apt-transport-https \
+    			ca-certificates \
+    			curl \
+    			gnupg-agent \
+    			software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo add-apt-repository \
+   		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   			$(lsb_release -cs) \
+   			stable"
+		sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
+		echo Installing done\!
+		sleep 1
+		#config files
+		echo Gitting files from GitHub and running configurations\.\.\.
+		sleep 1
+		#git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
+		sudo docker pull composer
+		sudo docker build -t ps/php:1.0 -t ps/php:latest . ;;
+	start )
+		sudo docker-compose up -d;;
+	stop )
+		sudo docker-compose down;;
+esac

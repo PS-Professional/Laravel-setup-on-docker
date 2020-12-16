@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    nginx
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -51,6 +52,8 @@ RUN chown -R www:www /var/www/html
 # Change current user to www
 USER www
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+# Expose port 80 and start php-fpm and nginx server
+EXPOSE 80
+COPY start.sh /entry/start.sh
+RUN chmod 755 /entry/start.sh
+ENTRYPOINT /entry/start.sh

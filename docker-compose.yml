@@ -7,6 +7,8 @@ services:
     container_name: App
     restart: unless-stopped
     tty: true
+    ports:
+      - "8000:80"
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
@@ -14,22 +16,23 @@ services:
     volumes:
       - Laravel:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
 
   #Nginx Service
-  Webserver:
-    image: nginx:alpine
-    container_name: Webserver
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "8000:80"
-    volumes:
-      - Laravel:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - app-network
+  #Webserver:
+    #image: nginx:alpine
+    #container_name: Webserver
+    #restart: unless-stopped
+    #tty: true
+    #ports:
+      #- "8000:80"
+    #volumes:
+      #- Laravel:/var/www
+      #- ./nginx/conf.d/:/etc/nginx/conf.d/
+    #networks:
+      #- app-network
 
   #MySQL Service
   DB:

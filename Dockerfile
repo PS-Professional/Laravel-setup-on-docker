@@ -40,7 +40,7 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Clone Laravel application directory contents
-RUN git clone https://github.com/laravel/laravel.git --branch=6.x /var/www/html
+RUN git clone https://github.com/laravel/laravel.git /var/www/html
 COPY .env /var/www/html
 RUN cd /var/www/html
 RUN composer install

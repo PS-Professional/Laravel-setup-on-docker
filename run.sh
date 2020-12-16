@@ -15,7 +15,7 @@
 echo Hello\!
 echo -e 'What you want me to do?\n1)Setup containers (init)\n2)Start containers (start)\n3)Stop containers (stop)'
 read -p '-> ' func
-case func in
+case $func in
 	init )
 		echo installing Docker\.\.\.
 		sleep 1

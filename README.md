@@ -34,6 +34,7 @@ As first step, all you need to do is run the run.sh script to setup files and co
 * start
 
 * stop
+
 init function will first add Docker repository and install it if it dosen't exsits on your host. Then it will clone Laravel version 6.X on yuor Laravel image and configure settings.
 start function will start running containers on your host.
 stop function will stop contianers created by start function.
@@ -47,9 +48,9 @@ sudo docker-compose exec App php artisan config:cache
 
 First command will generate a key and copy it to your .env file, ensuring that your user sessions and encrypted data remain secure and the second command will cache required environment settings ionto a file for more load speed.
 
-After this step, you need to create a DB user for laravel to perform a better security for your database and avoid using root user. To apply this settings to your database, you need to connect to it using sudo docker-compose exec DB bash command to open a shell. After login to container, use mysql -u root -p with the password admin123 to run mysql CLI. Then chech if the laravel database exists using show databases; command. After that, use grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123'; command to create a MySQL user and give required access permisions to laravel database. After this commands, use flush privileges; command to apply all changes. Then exit from MySQL and DB shell using exit command. After applied settings to MySQL, run sudo docker-compose exec App php artisan migrate command to migrate and connet laravel container to MySQL. You can cheack the previous command using sudo docker-compose exec App php artisan tinker command to start a shell and use \DB::table('migrations')->get(); to check if the App container connected to DB container and started using it. after this check, you can exit it using exit() command.
+After this step, you need to create a DB user for laravel to perform a better security for your database and avoid using root user. To apply this settings to your database, you need to connect to it using `sudo docker-compose exec DB bash` command to open a shell. After login to container, use `mysql -u root -p `with the password `admin123` to run mysql CLI. Then chech if the laravel database exists using `show databases;` command. After that, use `grant all on laravel.* to 'laraveluser'@'%' identified by 'admin123';` command to create a MySQL user and give required access permisions to laravel database. After this commands, use `flush privileges;` command to apply all changes. Then exit from MySQL and DB shell using `exit` command. After applied settings to MySQL, run `sudo docker-compose exec App php artisan migrate` command to migrate and connet laravel container to MySQL. You can cheack the previous command using `sudo docker-compose exec App php artisan tinker` command to start a shell and use `\DB::table('migrations')->get();` to check if the App container connected to DB container and started using it. after this check, you can exit it using `exit()` command.
 
-When you done this configurations, you can simply open your web browser and and enter http://your_server_ip:8000 address to see your final result.
+When you done this configurations, you can simply open your web browser and and enter `http://your_server_ip:8080` address to see your final result.
 
 
 ## Commans in a nutshell:
@@ -105,4 +106,6 @@ After that i tried to use PHP version 7.3 version but on setting up the image, I
 
 After that, I tried Laravel version 6.X and PHP version 7.2 and it finally worked
 
-At last, tried to use the latest version of PHP and Laravel. What I did for it is cloned Lravel files into php image and after that share that files with Nginx using Volumes
+At last, tried to use the latest version of PHP and Laravel. What I did for it is cloned Lravel files into php image and after that share that files with Nginx using Volumes. Right now, I combined Nginx and Laravel containers to test if user can update its codes or not.
+
+I checked for Nginx container and I noticed that it start with a non-root user which has no shell (/bin/false) and no home directory is definded for it and permisions of its configuratio files applied for its user. So I decided to use this one for more security and apply it to laravel files.

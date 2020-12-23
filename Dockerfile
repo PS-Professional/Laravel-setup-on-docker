@@ -7,11 +7,8 @@ FROM php:7.4-fpm
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
-
 # Install dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade && apt-get install -y \
     build-essential \
     libpng-dev \
     libonig-dev \
@@ -36,24 +33,41 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl gd bcmath
 #RUN docker-php-ext-install zip
 
 # Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+#RUN groupadd -g 1000 www-data
+#RUN useradd -u 1000 -ms /bin/bash -g www-data www-data
 
 # Clone Laravel application directory contents
+RUN rm -rf /var/www/html
 RUN git clone https://github.com/laravel/laravel.git /var/www/html
 COPY .env /var/www/html
 RUN cd /var/www/html
+#RUN ls
+# Set some permisions
+RUN find . -type f -exec chmod 664 {} \;
+RUN find . -type d -exec chmod 775 {} \;
+RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chmod -R ug+rwx storage bootstrap/cache
+
+#Nginx configures
+RUN touch /var/run/nginx.pid && \
+        chown -R www-data:www-data /var/run/nginx.pid && \
+        mkdir -p /var/cache/nginx && chown -R www-data:www-data /var/cache/nginx && \
+		chown -R www-data:www-data /var/log/nginx && chmod -R 755 /var/log/nginx
+        
+
+# Copy existing application directory permissions
+RUN chown -R www-data:www-data /var/www/html
+
+#Composer operations
 RUN composer install
 RUN composer update
 
-# Copy existing application directory permissions
-RUN chown -R www:www /var/www/html
+# Change current user to www and set working directory
+USER www-data
+WORKDIR /var/www/html/
 
-# Change current user to www
-USER www
-
-# Expose port 80 and start php-fpm and nginx server
-EXPOSE 80
+# Expose port 80 and 8080 and start php-fpm and nginx server
+EXPOSE 8080
 COPY start.sh /entry/start.sh
-RUN chmod 755 /entry/start.sh
 ENTRYPOINT /entry/start.sh
+CMD ["nginx" "-g" "daemon off;"]

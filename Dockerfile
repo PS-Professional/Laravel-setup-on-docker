@@ -52,7 +52,7 @@ RUN chmod -R ug+rwx storage bootstrap/cache
 RUN touch /var/run/nginx.pid && \
         chown -R www-data:www-data /var/run/nginx.pid && \
         mkdir -p /var/cache/nginx && chown -R www-data:www-data /var/cache/nginx && \
-		chown -R www-data:www-data /var/log/nginx && chmod -R 755 /var/log/nginx
+	chown -R www-data:www-data /var/log/nginx && chown -R www-data:www-data /var/lib/nginx
         
 
 # Copy existing application directory permissions

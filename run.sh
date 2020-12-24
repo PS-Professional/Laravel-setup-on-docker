@@ -95,11 +95,11 @@ case $func in
 		sudo docker-compose exec App /etc/init.d/nginx start && \
 		sudo docker-compose exec --user=root App chown -R www-data:www-data /var/www/html;;
 	setup )		
-		sudo docker-compose exec App html/php artisan key:generate && \
-		sudo docker-compose exec App html/php artisan config:cache && \
+		sudo docker-compose exec App php html/artisan key:generate && \
+		sudo docker-compose exec App php html/artisan config:cache && \
 		echo MySQL\'s Password is \: 'admin123' && \
 		sudo docker-compose exec DB bash && \
-		sudo docker-compose exec App html/php artisan migrate
+		sudo docker-compose exec App php html/artisan migrate
 		read -p 'Would you like to test database connectio? ' database
 		if [[ $database = 'yes' ]] || [[ $database = 'y' ]]
 		then

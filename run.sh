@@ -57,7 +57,7 @@ function docker_init(){
 
 #Main funcion
 echo Hello\!
-echo -e 'What you want me to do?\n1)Setup containers (init)\n2)Start containers (start)\n3)Stop containers (stop)'
+echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Stop containers (stop)\n5) Exit (exit)'
 read -p '-> ' func
 case $func in
 	init )
@@ -91,7 +91,31 @@ case $func in
 		sleep 1
 		docker_init ;;
 	start )
-		sudo docker-compose up -d;;
+		sudo docker-compose up -d && \
+		sudo docker-compose exec App /etc/init.d/nginx start && \
+		sudo docker-compose exec --user=root App chown -R www-data:www-data /var/www/html;;
+	setup )		
+		sudo docker-compose exec App html/php artisan key:generate && \
+		sudo docker-compose exec App html/php artisan config:cache && \
+		echo MySQL\'s Password is \: 'admin123' && \
+		sudo docker-compose exec DB bash && \
+		sudo docker-compose exec App html/php artisan migrate
+		read -p 'Would you like to test database connectio? ' database
+		if [[ $database = 'yes' ]] || [[ $database = 'y' ]]
+		then
+			sudo docker-compose exec App php html/artisan tinker
+		elif [[ $database = 'no' ]] || [[ $database = 'n' ]]
+		then
+			echo OK\!
+			sleep 1
+		else
+			echo I didn\'t understand\!
+                        sleep 0.5
+                        echo Please try again\!
+                        sleep 0.5
+		fi
+		echo Setting up contianers done\!
+		sleep 1;;
 	stop )
 		sudo docker-compose down;;
 

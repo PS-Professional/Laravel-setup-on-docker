@@ -9,6 +9,7 @@ services:
     tty: true
     ports:
       - "8000:80"
+      - "9000:9000"
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev

@@ -92,8 +92,8 @@ case $func in
 		docker_init ;;
 	start )
 		sudo docker-compose up -d && \
-		sudo docker-compose exec App /etc/init.d/nginx start && \
-		sudo docker-compose exec --user=root App chown -R www-data:www-data /var/www/html;;
+		sudo docker-compose exec --user=root App chown -R www-data:www-data /var/www/html &&\
+		sudo docker-compose exec App /etc/init.d/nginx start ;;
 	setup )		
 		sudo docker-compose exec App php artisan key:generate && \
 		sudo docker-compose exec App php artisan config:cache && \

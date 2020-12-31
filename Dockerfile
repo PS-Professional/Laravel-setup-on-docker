@@ -50,8 +50,8 @@ RUN find . -type d -exec chmod 775 {} \;
 RUN touch /var/run/nginx.pid && \
         chown -R www-data:www-data /var/run/nginx.pid && \
         mkdir -p /var/cache/nginx && chown -R www-data:www-data /var/cache/nginx && \
-	chown -R www-data:www-data /var/log/nginx && chown -R www-data:www-data /var/lib/nginx
-        
+	chown -R www-data:www-data /var/log/nginx && chown -R www-data:www-data /var/lib/nginx && \
+        chown -R www-data:www-data /var/www/html
 
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www/html

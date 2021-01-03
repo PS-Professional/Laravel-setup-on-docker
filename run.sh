@@ -52,13 +52,13 @@ function docker_init(){
 	sleep 1
 	#git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
 	sudo docker pull composer
-	sudo docker build -t ps/php:1.0 -t ps/php:latest .
+	sudo docker build -t ps/php:1.0 .
 }
 
 function update_image(){
 	sudo docker images | grep 'ps/php' | grep 'latest' > /tmp/runshtmp
 	a=0
-	for i in `cat tmp`
+	for i in `cat /tmp/runshtmp`
 	do
 		a=$(($a+1))
 		if [[ $a -eq 3 ]]
@@ -68,7 +68,7 @@ function update_image(){
 	done
 	sudo docker images | grep $LID > /tmp/runshtmp
 	a=0
-	for i in `cat tmp`
+	for i in `cat /tmp/runshtmp`
 	do
 		a=$(($a+1))
 		if [[ $a -eq 2 ]]
@@ -79,7 +79,7 @@ function update_image(){
 	echo Your last image version is: $LV
 	sleep 1
 	read -p 'Enter your new version tag: ' New 
-	sudo docker build -t ps/php:latest -t ps/php:$New .
+	sudo docker build -t ps/php:$New .
 }
 
 #Main funcion

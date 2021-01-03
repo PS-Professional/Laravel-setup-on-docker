@@ -55,7 +55,35 @@ function docker_init(){
 	sudo docker build -t ps/php:1.0 -t ps/php:latest .
 }
 
+function update_image(){
+	sudo docker images | grep 'ps/php' | grep 'latest' > /tmp/runshtmp
+	a=0
+	for i in `cat tmp`
+	do
+		a=$(($a+1))
+		if [[ $a -eq 3 ]]
+		then
+			LID=$i
+		fi
+	done
+	sudo docker images | grep $LID > /tmp/runshtmp
+	a=0
+	for i in `cat tmp`
+	do
+		a=$(($a+1))
+		if [[ $a -eq 2 ]]
+		then
+			LV=$i
+		fi
+	done
+	echo Your last image version is: $LV
+	sleep 1
+	read -p 'Enter your new version tag: ' New 
+	sudo docker build -t ps/php:latest -t ps/php:$New .
+}
+
 #Main funcion
+clear ; sleep 1
 echo Hello\!
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Stop containers (stop)\n5) Exit (exit)'
 read -p '-> ' func
@@ -117,7 +145,8 @@ case $func in
 		sleep 1;;
 	stop )
 		sudo docker-compose down;;
-
+	update )
+		update_image
 	exit )
 		echo Goodbye\!;;
 esac

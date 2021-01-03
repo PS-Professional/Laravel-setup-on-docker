@@ -83,9 +83,10 @@ function update_image(){
 }
 
 #Main funcion
-clear ; sleep 1
-echo Hello\!
+clear
+echo Hello\! ; sleep 1
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Stop containers (stop)\n6) Exit (exit)'
+sleep 1
 read -p '-> ' func
 case $func in
 	init )

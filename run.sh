@@ -85,7 +85,7 @@ function update_image(){
 #Main funcion
 clear ; sleep 1
 echo Hello\!
-echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Stop containers (stop)\n5) Exit (exit)'
+echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Stop containers (stop)\n6) Exit (exit)'
 read -p '-> ' func
 case $func in
 	init )
@@ -146,7 +146,7 @@ case $func in
 	stop )
 		sudo docker-compose down;;
 	update )
-		update_image
+		update_image;;
 	exit )
 		echo Goodbye\!;;
 esac

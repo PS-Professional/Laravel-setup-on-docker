@@ -3,7 +3,7 @@ services:
 
   #PHP Service
   App:
-    image: ps/php
+    image: ps/php:1.0
     container_name: App
     restart: unless-stopped
     tty: true

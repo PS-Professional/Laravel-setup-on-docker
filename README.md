@@ -19,11 +19,9 @@ This project inclode configurations to setup and run webserver which running Lar
 This project will make three containers on your Docker host:
 
 
-* A webserver using Nginx image (Nginx:alpine)
+* A webserver using Apache2 and also Laravel (using php:7.4-apache)
 
 * A databse using MySQL (mysql:5.7.22)
-
-* A container serving PHP tools for serving Laravel (using php:7.2-fpm)
 
 
 As first step, all you need to do is run the run.sh script to setup files and containers. This script has three functions:

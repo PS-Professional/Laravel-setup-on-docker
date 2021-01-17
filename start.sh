@@ -1,2 +1,2 @@
 #!/bin/bash
-php-fpm
+/etc/init.d/apache2 start

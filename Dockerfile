@@ -16,7 +16,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
-    zip \
+    zip libcap2-bin\
     jpegoptim optipng pngquant gifsicle \
     vim \
     unzip \
@@ -48,11 +48,12 @@ RUN find . -type f -exec chmod 664 {} \;
 RUN find . -type d -exec chmod 775 {} \;
 
 #Apache2 configures
-RUN touch /var/run/apache2/apache2.pid && \
-        chown -R www-data:www-data /var/run/apache2/apache2.pid && \
-        mkdir -p /var/cache/apache2 && chown -R www-data:www-data /var/cache/apache2 && \
+#RUN touch /var/run/apache2/apache2.pid && \
+#        chown -R www-data:www-data /var/run/apache2/apache2.pid && \
+RUN        mkdir -p /var/cache/apache2 && chown -R www-data:www-data /var/cache/apache2 && \
 	chown -R www-data:www-data /var/log/apache2 && chown -R www-data:www-data /var/lib/apache2 && \
         chown -R www-data:www-data /var/www/html
+RUN setcap 'cap_net_bind_service=+ep' /usr/sbin/apache2
 
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www/html

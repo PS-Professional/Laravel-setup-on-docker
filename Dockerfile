@@ -58,6 +58,8 @@ RUN touch /var/run/apache2/apache2.pid && \
 RUN chown -R www-data:www-data /var/www/html
 
 #Composer operations
+COPY start.sh /usr/bin/app-start
+RUN chmod 755 /usr/bin/app-start
 RUN composer install
 RUN composer update
 
@@ -68,6 +70,4 @@ WORKDIR /var/www/html/
 # Expose port 80 and 8080 and start php-fpm and nginx server
 EXPOSE 8080
 EXPOSE 9000
-COPY start.sh /start.sh
-ENTRYPOINT ["/start.sh;"]
-CMD ["nginx" "-g" "daemon off;"]
+ENTRYPOINT ["app-start"]

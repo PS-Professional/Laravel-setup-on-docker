@@ -105,7 +105,7 @@ case $func in
 		docker_init ;;
 	start )
 		sudo docker-compose up -d && \
-		sudo docker-compose exec --user=root App a2ensite /etc/apache2/sites-available/app.conf &&\
+		sudo docker-compose exec App a2ensite /etc/apache2/sites-available/app.conf &&\
 		sudo docker-compose exec App /etc/init.d/apache2 start ;;
 	setup )		
 		sudo docker-compose exec App php artisan key:generate && \

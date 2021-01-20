@@ -65,7 +65,6 @@ RUN composer update
 
 #Create app configuration for Apache2
 COPY apache2/sites-available/app.conf /etc/apache2/sites-available/app.conf
-RUN a2ensite /etc/apache2/sites-available/app.conf
 
 # Change current user to www and set working directory
 USER www-data

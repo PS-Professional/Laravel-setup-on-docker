@@ -105,8 +105,9 @@ case $func in
 		docker_init ;;
 	start )
 		sudo docker-compose up -d && \
+		sudo docker-compose exec App a2dissite /etc/apache2/sites-available/000-default.conf &&\
 		sudo docker-compose exec App a2ensite /etc/apache2/sites-available/app.conf &&\
-		sudo docker-compose exec App /etc/init.d/apache2 start ;;
+		sudo docker-compose exec App /etc/init.d/apache2 reload ;;
 	setup )		
 		sudo docker-compose exec App php artisan key:generate && \
 		sudo docker-compose exec App php artisan config:cache && \

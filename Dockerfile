@@ -72,5 +72,4 @@ WORKDIR /var/www/html/
 
 # Expose port 80 and 8080 and start php-fpm and nginx server
 EXPOSE 8080
-EXPOSE 9000
 ENTRYPOINT ["app-start"]

@@ -53,7 +53,6 @@ function docker_init(){
 	#git clone git https://github.com/laravel/laravel.git --branch=6.X laravel
 	sudo docker pull composer
 	sudo docker build -t ps/php:1.0 .
-	echo 1.0 > .version
 }
 
 function update_image(){
@@ -68,6 +67,7 @@ function update_image(){
 
 #Main funcion
 clear
+echo 1.0 > .version
 echo Hello\! ; sleep 1
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Stop containers (stop)\n6) Exit (exit)'
 sleep 1

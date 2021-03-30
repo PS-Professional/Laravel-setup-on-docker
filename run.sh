@@ -69,11 +69,10 @@ function update_image(){
 #Main funcion
 clear
 echo Hello\! ; sleep 1
-echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Stop containers (stop)\n6) Exit (exit)'
-sleep 1
+echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Restart containers (restart)\n6) Stop containers (stop)\n7) Exit (exit)'
 read -p '-> ' func
 case $func in
-	init )
+	init || 1 )
 		if [[ -f /usr/bin/docker ]]
 		then
 			echo Docker is already exsits in your system
@@ -103,10 +102,10 @@ case $func in
 		fi
 		sleep 1
 		docker_init ;;
-	start )
+	start || 2 )
 		sudo docker-compose up -d && \
 		sudo docker-compose exec App /etc/init.d/nginx start ;;
-	setup )		
+	setup || 3 )		
 		sudo docker-compose exec App php artisan key:generate && \
 		sudo docker-compose exec App php artisan config:cache && \
 		echo MySQL\'s Password is \: 'admin123' && \
@@ -128,10 +127,12 @@ case $func in
 		fi
 		echo Setting up contianers done\!
 		sleep 1;;
-	stop )
-		sudo docker-compose down;;
-	update )
+	update || 4)
 		update_image;;
-	exit )
+	restart || 5 )
+		sudo docker-compose down;;
+	stop || 6 )
+		sudo docker-compose down;;
+	exit || 7)
 		echo Goodbye\!;;
 esac

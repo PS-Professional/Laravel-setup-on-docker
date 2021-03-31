@@ -3,6 +3,9 @@ FROM php:7.4-apache
 # Copy composer.lock and composer.json
 #COPY ./laravel/composer.* /var/www/
 
+#define version of image in a file
+cat 1.0 > /version.txt
+
 # Install composer
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

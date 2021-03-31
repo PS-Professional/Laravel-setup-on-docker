@@ -56,7 +56,7 @@ RUN find . -type d -exec chmod 775 {} \;
 #        chown -R www-data:www-data /var/www/html
 
 # Copy existing application directory permissions
-#RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 #Composer operations
 COPY start.sh /usr/bin/app-start
@@ -71,7 +71,7 @@ COPY apache2/sites-available/app.conf /etc/apache2/sites-available/app.conf
 #RUN a2enmod rewrite headers
 
 # Change current user to www and set working directory
-USER www-data
+#USER www-data
 WORKDIR /var/www/html/
 
 # Expose port 80 and 8080 and start php-fpm and nginx server

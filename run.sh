@@ -62,6 +62,7 @@ function ver_check(){
 	else
 		echo 1.0 > .version
 		LV=`cat .version`
+	fi
 }
 
 function update_image(){

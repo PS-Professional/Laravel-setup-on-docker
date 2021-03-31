@@ -112,7 +112,8 @@ case $func in
 		sleep 1
 		docker_init ;;
 	start )
-		sudo docker-compose up -d;;
+		sudo docker-compose up -d && \
+		sudo docker-compose exec --user=root App /etc/init.d/apache2 start;;
 	setup )		
 		sudo docker-compose exec App php artisan key:generate && \
 		sudo docker-compose exec App php artisan config:cache && \

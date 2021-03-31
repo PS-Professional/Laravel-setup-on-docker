@@ -72,7 +72,7 @@ echo Hello\! ; sleep 1
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Restart containers (restart)\n6) Stop containers (stop)\n7) Exit (exit)'
 read -p '-> ' func
 case $func in
-	init )
+	init || 1 )
 		if [[ -f /usr/bin/docker ]]
 		then
 			echo Docker is already exsits in your system
@@ -102,12 +102,9 @@ case $func in
 		fi
 		sleep 1
 		docker_init ;;
-	start )
-		sudo docker-compose up -d && \
-		sudo docker-compose exec App a2dissite /etc/apache2/sites-available/000-default.conf &&\
-		sudo docker-compose exec App a2ensite /etc/apache2/sites-available/app.conf &&\
-		sudo docker-compose exec App /etc/init.d/apache2 reload ;;
-	setup )		
+	start || 2 )
+		sudo docker-compose up -d;;
+	setup || 3 )		
 		sudo docker-compose exec App php artisan key:generate && \
 		sudo docker-compose exec App php artisan config:cache && \
 		echo MySQL\'s Password is \: 'admin123' && \
@@ -129,10 +126,12 @@ case $func in
 		fi
 		echo Setting up contianers done\!
 		sleep 1;;
-	stop )
-		sudo docker-compose down;;
-	update )
+	update || 4)
 		update_image;;
-	exit )
+	restart || 5 )
+		sudo docker-compose restart;;
+	stop || 6)
+		sudo docker-compose down;;
+	exit || 7)
 		echo Goodbye\!;;
 esac

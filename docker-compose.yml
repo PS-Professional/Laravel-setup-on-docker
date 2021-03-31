@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
@@ -17,6 +17,7 @@ services:
       #- Laravel:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
       - ./apache2/sites-available/app.conf:/etc/apache2/sites-available/app.conf
+      - ./apache2/ports.conf:/etc/apache2/ports.conf
     networks:
       - app-network
 

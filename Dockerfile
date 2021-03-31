@@ -66,14 +66,14 @@ RUN composer update
 
 #Create app configuration for Apache2
 COPY apache2/sites-available/app.conf /etc/apache2/sites-available/app.conf
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-RUN a2enmod rewrite headers
+#ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+#RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+#RUN a2enmod rewrite headers
 
 # Change current user to www and set working directory
-#USER www-data
+USER www-data
 WORKDIR /var/www/html/
 
 # Expose port 80 and 8080 and start php-fpm and nginx server
-EXPOSE 8080
+#EXPOSE 8080
 ENTRYPOINT ["app-start"]

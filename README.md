@@ -31,6 +31,8 @@ As first step, all you need to do is run the run.sh script to setup files and co
 
 * setup
 
+* restart
+
 * stop
 
 * update
@@ -72,4 +74,4 @@ exit()
 ## My experience on this project:
 
 
-As side project of Dockerize Laravel with Nginx web server, I decided to add Apache2 webserver setup to this project. Right now, this branch **is not fully functional** and I'm debbuging performance and stability of Apache2 webserver.
+As side project of Dockerize Laravel with Nginx web server, I decided to add Apache2 webserver setup to this project. At first, I just tried to do what exactly I did for Nginx and as you guess, it didn't work. My first step of solving this problem was to ignore using `www-data` user and do whatever needed with `root` user. In this step, Apache2 server could start but nothing displayed on port 8080. So i decided to change this port to 80 and everything was OK. Then I realized unlike Nginx, for using onther port on Apache2 server you have to define the port in `/etc/apache2/ports.conf` too. So I created that file and gave it to Apache2 container so it can use port 8080 too.

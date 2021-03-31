@@ -55,8 +55,16 @@ function docker_init(){
 	sudo docker build -t ps/php:1.0 .
 }
 
+function ver_check(){
+	if [[ -f .version ]]
+	then
+		LV=`cat .version`
+	else
+		echo 1.0 > .version
+		LV=`cat .version`
+}
+
 function update_image(){
-	LV=`cat .version`
 	echo Your last image version is: $LV
 	sleep 1
 	read -p 'Enter your new version tag: ' New 
@@ -67,7 +75,7 @@ function update_image(){
 
 #Main funcion
 clear
-echo 1.0 > .version
+ver_check
 echo Hello\! ; sleep 1
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Restart containers (restart)\n6) Stop containers (stop)\n7) Exit (exit)'
 read -p '-> ' func

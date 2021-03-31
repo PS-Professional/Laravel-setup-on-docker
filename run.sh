@@ -70,6 +70,7 @@ function update_image(){
 	echo Your last image version is: $LV
 	sleep 1
 	read -p 'Enter your new version tag: ' New 
+	sed 's/'$LV'/'$New'/' Dcokerfile > tmp && cat tmp > Dockerfile && rm tmp
 	sudo docker build -t ps/php:$New .
 	echo $New > .version
 	sed 's/'$LV'/'$New'/' docker-compose.yml > tmp && cat tmp > docker-compose.yml && rm tmp

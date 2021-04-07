@@ -24,20 +24,22 @@ This project will make three containers on your Docker host:
 * A databse using MySQL (mysql:5.7.22)
 
 
-As first step, all you need to do is run the run.sh script to setup files and containers. This script has three functions:
+As first step, all you need to do is run the run.sh script to setup files and containers. This script has seven functions:
 * init 
 
 * start
 
 * setup
 
+* update
+
 * restart
 
 * stop
 
-* update
+* exit
 
-This script first check your host if Docker exists or not when you use `init` function. If you had installed Docker before, it will ask you for updating system or not and if you didn't installed docker before, it will start installing Docker on yuor host (right now I wrote this script for Debian-based destributions). After that Docker will start getting required files and make them ready for setting containers up. When init function done, you will back to your prompt. Then run the script agian and use `start` function to start containers. When starting done, by using `setup` function you will configure containers but some you need to execute commands yourself (sommands are available in Commands in a nutshell section). When this processes done, you can simply open your web browser and and enter `http://your_server_ip:8080` address to see your final result. If you consider updating php images, you can use the `update` function. If needed, you can restart containers using `restart` function. Finally, to exit from script just use `stop` function.
+This script first check your host if Docker exists or not when you use `init` function. If you had installed Docker before, it will ask you for updating system or not and if you didn't installed docker before, it will start installing Docker on yuor host (right now I wrote this script for Debian-based destributions). After that Docker will start getting required files and make them ready for setting containers up. When init function done, you will back to your prompt. Then run the script agian and use `start` function to start containers. When starting done, by using `setup` function you will configure containers but some you need to execute commands yourself (sommands are available in Commands in a nutshell section). When this processes done, you can simply open your web browser and and enter `http://your_server_ip:8080` address to see your final result. If you consider updating php images, you can use the `update` function. If needed, you can restart containers using `restart` function and to shut it down, just use `stop` function. Finally, to exit from script just use `exit` function.
 
 ## Commands in a nutshell:
 

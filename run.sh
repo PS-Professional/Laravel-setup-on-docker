@@ -16,6 +16,18 @@
 #SYS_PKG=`cat /etc/os-release | grep 'ID_LIKE' | cut -f 2 -d '='`
 
 #Functions
+function help(){
+        echo -e "run.sh:     Setup and run Laravel framework on Docker engine\n"
+        echo "Options:"
+        echo -e "N/A\t\t Run script in interactive mode"
+        echo -e "init\t\t Install Docker and setup Laravel image"
+        echo -e "start\t\t Start Laravel and MySQL containers"
+        echo -e "setup\t\t Setup Laravel and MySQL configurations"
+		echo -e "update\t\t Update Laravel image"
+        echo -e "restart\t\t Restart Laravel and MySQL containers"
+        echo -e "stop\t\t stop Laravel and MySQL containers"
+}
+
 function docker_install(){
 	#Install docker on your host
 	echo installing Docker\.\.\.
@@ -76,8 +88,8 @@ function update_image(){
 }
 
 #Main funcion
+function main(){
 clear
-ver_check
 echo Hello\! ; sleep 1
 echo -e 'What you want me to do?\n1) Setup containers (init)\n2) Start containers (start)\n3) Setup container configurations (setup)\n4) Update image (update)\n5) Restart containers (restart)\n6) Stop containers (stop)\n7) Exit (exit)'
 read -p '-> ' func
@@ -146,3 +158,77 @@ case $func in
 	exit )
 		echo Goodbye\!;;
 esac
+}
+
+#Main code
+ver_check
+if [[ -z $1 ]]
+then
+	main
+else
+	case $1 in
+		init )
+			if [[ -f /usr/bin/docker ]]
+				then
+					echo Docker is already exsits in your system
+					sleep 1
+					State=1
+					while [[ $State = 1 ]]
+					do
+						read -p 'Do you want to check for system updates? ' update
+						if [[ $update = 'yes' ]] || [[ $update = 'y' ]]
+						then
+							docker_update
+							State=0
+						elif [[ $update = 'no' ]] || [[ $update = 'n' ]]
+						then
+							echo OK\!
+							sleep 1
+							State=0
+						else
+							echo I didn\'t understand\!
+							sleep 0.5
+							echo Please try again\!
+							sleep 0.5
+						fi
+					done
+			else
+				docker_install
+			fi
+			sleep 1
+			docker_init ;;
+	start )
+		sudo docker-compose up -d ;;#&& \
+		##sudo docker-compose exec --user=root App /etc/init.d/apache2 start;;
+	Setup )
+		sudo docker-compose exec App php artisan key:generate && \
+		sudo docker-compose exec App php artisan config:cache && \
+		echo MySQL\'s Password is \: 'admin123' && \
+		sudo docker-compose exec DB bash && \
+		sudo docker-compose exec App php artisan migrate
+		read -p 'Would you like to test database connection? ' database
+		if [[ $database = 'yes' ]] || [[ $database = 'y' ]]
+		then
+			sudo docker-compose exec --user=root App php artisan tinker
+		elif [[ $database = 'no' ]] || [[ $database = 'n' ]]
+		then
+			echo OK\!
+			sleep 1
+		else
+			echo I didn\'t understand\!
+            sleep 0.5
+            echo Please try again\!
+            sleep 0.5
+		fi
+		echo Setting up contianers done\!
+		sleep 1;;
+	update )
+		update_image;;
+	restart )
+		sudo docker-compose restart;;
+	stop )
+		sudo docker-compose down;;
+	* )
+		help;;
+	esac
+fi

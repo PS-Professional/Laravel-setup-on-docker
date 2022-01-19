@@ -23,7 +23,7 @@ function help(){
         echo -e "init\t\t Install Docker and setup Laravel image"
         echo -e "start\t\t Start Laravel and MySQL containers"
         echo -e "setup\t\t Setup Laravel and MySQL configurations"
-		echo -e "update\t\t Update Laravel image"
+        echo -e "update\t\t Update Laravel image"
         echo -e "restart\t\t Restart Laravel and MySQL containers"
         echo -e "stop\t\t stop Laravel and MySQL containers"
 }

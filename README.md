@@ -1,19 +1,9 @@
-Laravel installer on Docker engine
-
-Developed by PS-Professional
-
-     ____  ____        ____             __               _                   _ 
-    |  _ \/ ___|      |  _ \ _ __ ___  / _| ___  ___ ___(_) ___  _ __   __ _| |
-    | |_) \___ \ _____| |_) | '__/ _ \| |_ / _ \/ __/ __| |/ _ \| '_ \ / _` | |
-    |  __/ ___) |_____|  __/| | | (_) |  _|  __/\__ \__ \ | (_) | | | | (_| | |
-    |_|   |____/      |_|   |_|  \___/|_|  \___||___/___/_|\___/|_| |_|\__,_|_|
-
-
-## What is this project?
+<h1 align="center"><b>Laravel-Docker</b></h1>
+### What is this project?
 
 This project inclode configurations to setup and run webserver and host Laravel framework. Laravel is a PHP Framework designed for web development. It also uses database applications such as MySQL for better performance.
 
-## What will this project do?
+### What will this project do?
 
 
 This project will make two containers on your Docker host:
@@ -40,9 +30,9 @@ As first step, all you need to do is run the run.sh script to setup files and co
 
 This script first check your host if Docker exists or not when you use `init` function. If you had installed Docker before, it will ask you for updating system or not and if you didn't installed docker before, it will start installing Docker on yuor host (right now I wrote this script for Debian-based destributions). After that Docker will start getting required files and make them ready for setting containers up. When init function done, you will back to your prompt. Then run the script agian and use `start` function to start containers. When starting done, by using `setup` function you will configure containers but some you need to execute commands yourself (sommands are available in Commands in a nutshell section). When this processes done, you can simply open your web browser and and enter `http://your_server_ip:8080` address to see your final result. If you consider updating php images, you can use the `update` function. If needed, you can restart containers using `restart` function and to shut it down, just use `stop` function. Finally, to exit from script just use `exit` function.
 
-## Commands in a nutshell:
+### Commands in a nutshell:
 
-~~~
+```bash
 #Main setup
 
 ./run.sh #init
@@ -71,9 +61,9 @@ exit
 \DB::table('migrations')->get();
 
 exit()
-~~~
+```
 
-## My experience on this project:
+### My experience on this project:
 
 
 As first try, I cloned the last version of Laravel and after setup all container, I tried to run commands on App container but I got out-of-date error on PHP version which needed to be >= 7.3. 
